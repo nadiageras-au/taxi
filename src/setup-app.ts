@@ -1,6 +1,7 @@
 import express, { Express, Request, Response } from 'express';
 import {driversRouter} from "./drivers/routers/drivers.routers";
 import {testingRouter} from "./testing/routers/testing.routers";
+import { setupSwagger } from './core/swagger/setup-swagger';
 
 
 export const setupApp = (app: Express) => {
@@ -13,5 +14,6 @@ export const setupApp = (app: Express) => {
     app.use('/drivers', driversRouter);
     app.use('/testing', testingRouter);
 
+    setupSwagger(app);
     return app;
 };
