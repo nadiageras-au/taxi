@@ -20,11 +20,11 @@ export const setupApp = (app: Express) => {
     app.get("/drivers/:id",
         (
         req: Request<{ id: string }, Driver, {}, {}>,
-        res: Response<Driver | null>,
+        res: Response<Driver | string>,
         ) => {
             const driver = db.drivers.find((d) => d.id === +req.params.id);
             if (!driver) {
-                res.sendStatus(404);
+                res.status(404).send("no driver found");
                 return;
             }
             res.status(200).send(driver);
