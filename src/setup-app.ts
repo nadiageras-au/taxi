@@ -2,6 +2,8 @@ import express, { Express, Request, Response } from 'express';
 import { db } from "./db/in-memorry.db";
 import { HttpStatus } from './core/types/http-statuses';
 import { Driver } from './drivers/types/driver';
+import {vehicleInputDtoValidation} from "./validation/vehicleInputDtoValidation";
+import {createErrorMessages} from "./core/utils/error.utils";
 
 export const setupApp = (app: Express) => {
     app.use(express.json()); // middleware для парсинга JSON в теле запроса
@@ -34,6 +36,12 @@ export const setupApp = (app: Express) => {
 
     app.post('/drivers', (req: Request, res: Response) => {
         //1) проверяем приходящие данные на валидность
+        const error = vehicleInputDtoValidation(req.body);
+
+        if(error.length > 0) {
+            res.status(HttpStatus.BadRequest).send(createErrorMessages(error));
+            return;
+        }
 
         //2) создаем newDriver
         const newDriver: Driver = {
