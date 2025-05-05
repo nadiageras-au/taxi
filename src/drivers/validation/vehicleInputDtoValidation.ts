@@ -1,6 +1,6 @@
-import {DriverInputDto} from "../drivers/dto/driver.input-dto";
-import {VehicleFeature} from "../drivers/types/driver";
-import {ValidationError} from "../drivers/types/validationError";
+import {DriverInputDto} from "../dto/driver.input-dto";
+import {VehicleFeature} from "../types/driver";
+import {ValidationError} from "../types/validationError";
 
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
